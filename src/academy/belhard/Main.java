@@ -16,11 +16,10 @@ public class Main {
             e.printStackTrace();
         }
 
-        DB_Connector db_connector = new DB_Connector(connection);
+        CSV_Writer csv_writer = new CSV_Writer(connection);
 
-        CSV_Reader csv_reader = new CSV_Reader();
-        csv_reader.read_flights("./db/data/flights.csv");
-        csv_reader.read_pilots("./db/data/pilots.csv");
-        csv_reader.read_planes("./db/data/planes.csv");
+//        csv_writer.write_pilots("./db/data/pilots.csv");
+        csv_writer.write_planes("./db/data/planes.csv");
+        csv_writer.write_flights("./db/data/flights.csv");
     }
 }

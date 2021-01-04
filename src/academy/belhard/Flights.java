@@ -10,15 +10,17 @@ public class Flights {
     int pilot_id;
     LocalDate date_f;
     LocalTime time_f;
+    String flight_No;
 
     public Flights(){};
 
-    public Flights(int id, int plane_id, int pilot_id, LocalDate date_f, LocalTime time_f) {
+    public Flights(int id, int plane_id, int pilot_id, LocalDate date_f, LocalTime time_f, String flight_No) {
         this.id = id;
         this.plane_id = plane_id;
         this.pilot_id = pilot_id;
         this.date_f = date_f;
         this.time_f = time_f;
+        this.flight_No = flight_No;
     }
 
     public int getId() {
@@ -59,6 +61,14 @@ public class Flights {
 
     public void setTime_f(LocalTime time_f) {
         this.time_f = time_f;
+    }
+
+    public String getFlight_No() {
+        return flight_No;
+    }
+
+    public void setFlight_No(String flight_No) {
+        this.flight_No = flight_No;
     }
 
     @Override
