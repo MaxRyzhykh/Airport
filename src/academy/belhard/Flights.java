@@ -12,8 +12,6 @@ public class Flights {
     LocalTime time_f;
     String flight_No;
 
-    public Flights(){};
-
     public Flights(int id, int plane_id, int pilot_id, LocalDate date_f, LocalTime time_f, String flight_No) {
         this.id = id;
         this.plane_id = plane_id;
