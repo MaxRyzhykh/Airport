@@ -22,8 +22,6 @@ public class Main {
         csv_writer.write_planes("./db/data/planes.csv");
         csv_writer.write_flights("./db/data/flights.csv");
 
-        DB_Connector db_connector = new DB_Connector(connection);
-
-        db_connector.read_records("./result/result.csv");
+        csv_writer.write_records("./result/result.csv");
     }
 }

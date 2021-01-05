@@ -15,7 +15,7 @@ CREATE TABLE planes (
     brand VARCHAR(100) NOT NULL,
     model VARCHAR(50) NOT NULL,
     passenger_amount INT NOT NULL,
-    bort_number INT UNIQUE
+    bort_number VARCHAR(50) UNIQUE
 );
 
 CREATE TABLE flights (
@@ -23,7 +23,8 @@ CREATE TABLE flights (
     plane_id INT NOT NULL,
     pilot_id INT NOT NULL,
     date_f DATE NOT NULL,
-    time_f TIME NOT NULL UNIQUE,
+    time_f TIME NOT NULL,
+    flight_No VARCHAR(10) UNIQUE NOT NULL,
     FOREIGN KEY (plane_id) REFERENCES planes (id),
     FOREIGN KEY (pilot_id) REFERENCES pilots (id)
 );

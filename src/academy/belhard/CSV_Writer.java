@@ -2,10 +2,12 @@ package academy.belhard;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 public class CSV_Writer extends DB_Connector {
 
     public CSV_Writer(Connection connection) {
@@ -104,6 +106,34 @@ public class CSV_Writer extends DB_Connector {
             e.printStackTrace();
         }
         System.out.println("Запись в таблицу Flights завершена.");
+    }
+
+    public void write_records(String file){
+        try {
+            for (Records row : read_records()) {
+                System.out.println(row);
+            }
+
+            FileWriter csvWriter = new FileWriter(file);
+
+            for (Records row : read_records()) {
+                    csvWriter.append(row.getFlight_No() + ",");
+                    csvWriter.append(row.getDate_f() + ",");
+                    csvWriter.append(row.getDate_f() + ",");
+                    csvWriter.append(row.getBort_number() + ",");
+                    csvWriter.append(row.getBrand_Model() + ",");
+                    csvWriter.append(row.getPassenger_amount() + ",");
+                    csvWriter.append(row.getName() + ",");
+                    csvWriter.append(row.getUnique_code() + ",");
+                    csvWriter.append(row.getRank());
+                    csvWriter.append("\n");
+                }
+
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

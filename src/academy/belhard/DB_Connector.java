@@ -1,13 +1,13 @@
 package academy.belhard;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DB_Connector {
 
@@ -66,10 +66,12 @@ public class DB_Connector {
         }
     }
 
-    public void read_records(String file) {
+    public List<Records> read_records() {
         try (PreparedStatement statement = connection.prepareStatement(REQUEST)) {
 
             ResultSet result = statement.executeQuery();
+
+            List<Records> recList = new ArrayList<>();
 
             while (result.next()) {
                 String flight_No = result.getString(1);
@@ -83,33 +85,14 @@ public class DB_Connector {
                 String rank = result.getString(11);
                 Records rec = new Records(flight_No, date_f, time_f, bort_number, brand_model, passenger_amount, name, unique_code, rank);
 
-                write_records(rec,file);
-                System.out.println(rec);
+                recList.add(rec);
             }
+
+            return recList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void write_records(Records record, String file){
-        try {
-            FileWriter csvWriter = new FileWriter(file);
-
-            csvWriter.append(record.getFlight_No() + ",");
-            csvWriter.append(record.getDate_f() + ",");
-            csvWriter.append(record.getDate_f() + ",");
-            csvWriter.append(record.getBort_number() + ",");
-            csvWriter.append(record.getBrand_Model() + ",");
-            csvWriter.append(record.getPassenger_amount() + ",");
-            csvWriter.append(record.getName() + ",");
-            csvWriter.append(record.getUnique_code() + ",");
-            csvWriter.append(record.getRank() + ",");
-            csvWriter.append("\n");
-
-            csvWriter.flush();
-            csvWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
