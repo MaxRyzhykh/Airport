@@ -1,8 +1,5 @@
 package academy.belhard;
 
-import com.mysql.cj.result.SqlDateValueFactory;
-import com.mysql.cj.result.SqlTimeValueFactory;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
