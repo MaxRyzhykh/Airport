@@ -1,5 +1,10 @@
 package academy.belhard;
 
+import com.mysql.cj.result.SqlDateValueFactory;
+import com.mysql.cj.result.SqlTimeValueFactory;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,38 +69,50 @@ public class DB_Connector {
         }
     }
 
-    public void readRecords() {
+    public void read_records(String file) {
         try (PreparedStatement statement = connection.prepareStatement(REQUEST)) {
 
             ResultSet result = statement.executeQuery();
 
             while (result.next()) {
-                int id = result.getInt("id");
-                String city = result.getString("city");
-                String street = result.getString("street");
-                int house_number = result.getInt("house_number");
-                int corps_number = result.getInt("corps_number");
-                int apartment_number = result.getInt("apartment_number");
                 String flight_No = result.getString(1);
-                LocalDate date_f = result.getDate(2);
-                LocalTime time_f = result.getTime(3);
+                LocalDate date_f = result.getDate(2).toLocalDate();
+                LocalTime time_f = result.getTime(3).toLocalTime();
                 String bort_number = result.getString(4);
-                String brand = result.getString(5);
-                String model = result.getString(6);
-                int passenger_amount
-                String last_name = result.getString(8);
-                String first_name = result.getString(9);
+                String brand_model = result.getString(5) + " " + result.getString(6);
+                int passenger_amount = result.getInt(7);
+                String name = result.getString(8) + " " + result.getString(9).charAt(0) + ".";
                 String unique_code = result.getString(10);
                 String rank = result.getString(11);
+                Records rec = new Records(flight_No, date_f, time_f, bort_number, brand_model, passenger_amount, name, unique_code, rank);
 
-                    Address a = new Address(id, city, street, house_number, corps_number, apartment_number);
-
-                res.add(a);
+                write_records(rec,file);
+                System.out.println(rec);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-        return res;
+    public void write_records(Records record, String file){
+        try {
+            FileWriter csvWriter = new FileWriter(file);
+
+            csvWriter.append(record.getFlight_No() + ",");
+            csvWriter.append(record.getDate_f() + ",");
+            csvWriter.append(record.getDate_f() + ",");
+            csvWriter.append(record.getBort_number() + ",");
+            csvWriter.append(record.getBrand_Model() + ",");
+            csvWriter.append(record.getPassenger_amount() + ",");
+            csvWriter.append(record.getName() + ",");
+            csvWriter.append(record.getUnique_code() + ",");
+            csvWriter.append(record.getRank() + ",");
+            csvWriter.append("\n");
+
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

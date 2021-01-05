@@ -18,8 +18,12 @@ public class Main {
 
         CSV_Writer csv_writer = new CSV_Writer(connection);
 
-//        csv_writer.write_pilots("./db/data/pilots.csv");
-//        csv_writer.write_planes("./db/data/planes.csv");
-//        csv_writer.write_flights("./db/data/flights.csv");
+        csv_writer.write_pilots("./db/data/pilots.csv");
+        csv_writer.write_planes("./db/data/planes.csv");
+        csv_writer.write_flights("./db/data/flights.csv");
+
+        DB_Connector db_connector = new DB_Connector(connection);
+
+        db_connector.read_records("./result/result.csv");
     }
 }
